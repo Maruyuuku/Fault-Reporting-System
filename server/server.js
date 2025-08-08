@@ -22,17 +22,24 @@ app.use('/api/auth', authRoutes);
 app.use('/api/reports', authenticate, reportRoutes); 
 app.use('/api/users', authenticate, userRoutes); // protected
 
+console.log('Static path:', path.join(__dirname, '../client/build'));
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Serving static files from:', path.join(__dirname, '../client/build'));
 
-//run for production
+app.get('/test-catchall', (req, res) => {
+  res.status(200).send('Test catchall route hit');
+  console.log("catchall route hit");
+});
+
+// Dev: no static files, no catch-all for frontend
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-
-  app.get('*', (req, res) => {
+  app.get(/.*/, (req, res) => {
+    console.log("in app.get");
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    console.log("after sendFIle");
   });
 }
-
-
 
 // Server
 const PORT = process.env.PORT || 5000;
