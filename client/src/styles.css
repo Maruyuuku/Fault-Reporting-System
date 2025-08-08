@@ -1,0 +1,710 @@
+/* ============================= 
+Theme 
+============================= */
+:root {
+  --color-bg: #f9fafb;            /* ultra light grey */
+  --color-light: #ffffff;         /* white */
+  --color-dark: #121212;          /* deep black */
+  --color-grey: #7a7a7a;          /* neutral grey */
+  --color-border: #ddd;           /* subtle border */
+  --color-accent: #1f1f1f;        /* dark accent */
+  --sidebar-bg: #111111;          /* very dark sidebar */
+  --radius: 12px;
+  --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* Reset and base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: var(--font-primary);
+  background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+  background-color: var(--color-bg);
+  color: var(--color-dark);
+  line-height: 1.65;
+  min-height: 100vh;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================= 
+Layout 
+============================= */
+.wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: stretch;
+}
+
+/* ============================= 
+Navbar 
+============================= */
+.custom-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  color: #222;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.navbar-right .btn {
+  margin-left: 1rem;
+}
+
+
+/* ============================= 
+Sidebar 
+============================= */
+.sidebar {
+  width: 210px;
+  min-height: 100vh;
+  background-color: var(--sidebar-bg);
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 0 12px rgba(0,0,0,0.4);
+  transition: width 0.3s ease;
+}
+
+.sidebar .nav-link {
+  margin-bottom: 1.6rem;
+  font-size: 1.1rem;
+  color: #b5b5b5;
+  transition: color var(--transition-speed) ease, font-weight var(--transition-speed) ease;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: var(--color-light);
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,255,255,0.25);
+}
+
+/* ============================= 
+Content Area 
+============================= */
+#content {
+  flex-grow: 1;
+  padding: 3rem 4rem;
+  background-color: var(--color-light);
+  min-height: 100vh;
+  overflow-y: auto;
+  transition: padding 0.3s ease;
+  letter-spacing: 0.015em;
+}
+
+/* ============================= 
+Tables 
+============================= */
+.report-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: var(--color-dark);
+}
+
+.report-table th,
+.report-table td {
+  background-color: #fff;
+  padding: 14px 20px;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.report-table th {
+  background-color: transparent;
+  font-weight: 700;
+  color: var(--color-dark);
+  letter-spacing: 0.04em;
+  padding-bottom: 12px;
+  box-shadow: none;
+}
+
+.report-table tbody tr:hover {
+  background-color: #f0f2f5;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: background-color 0.25s ease;
+}
+
+/* ============================= 
+Buttons & Inputs 
+============================= */
+.btn,
+.form-select,
+input,
+textarea {
+  border-radius: var(--radius);
+  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  border: 1.5px solid var(--color-border);
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+  outline-offset: 2px;
+}
+
+.btn {
+  cursor: pointer;
+  font-weight: 700;
+  user-select: none;
+  box-shadow: 0 3px 7px rgba(26,26,26,0.15);
+}
+
+.btn-primary {
+  background-color: var(--color-dark);
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(26,26,26,0.35);
+}
+
+.btn-primary:hover {
+  background-color: #000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--color-dark);
+  border: 1.5px solid var(--color-dark);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-dark);
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #222;
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn-success:hover {
+  background-color: #000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.btn-outline-success {
+  background-color: transparent;
+  color: #222;
+  border: 1.5px solid #222;
+}
+
+.btn-outline-success:hover {
+  background-color: #222;
+  color: #fff;
+}
+
+select.form-select:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-dark);
+  box-shadow: 0 0 12px rgba(18,18,18,0.15);
+  background-color: var(--color-light);
+}
+
+/* ============================= 
+Alerts 
+============================= */
+.alert {
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.alert-info {
+  background-color: #e7e9ec;
+  color: var(--color-dark);
+  border: 1px solid #c3c6c9;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.alert-danger {
+  background-color: #fae6e6;
+  color: #8b1c1c;
+  border: 1px solid #f2a1a1;
+  box-shadow: 0 2px 6px rgba(139,28,28,0.1);
+}
+
+/* ============================= 
+Priority Labels 
+============================= */
+.low-priority { color: #2e7d32; }   
+.med-priority { color: #c49a00; }     
+.high-priority { color: #b71c1c; }    
+
+/* ============================= 
+Status Badges 
+============================= */
+.badge-submitted,
+.badge-assigned,
+.badge-in-progress,
+.badge-resolved {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  user-select: none;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.badge-submitted { background-color: #757575; }  
+.badge-assigned { background-color: #333333; }     
+.badge-in-progress { background-color: #222222; }   
+.badge-resolved { background-color: #000000; } 
+
+/* ============================= 
+Misc Utilities 
+============================= */
+.text-muted {
+  color: #8c8c8c !important;
+  font-style: italic;
+}
+
+.mb-1 { margin-bottom: 0.4rem; }
+.mb-3 { margin-bottom: 1.4rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.form-group {
+  margin-bottom: 1.6rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-dark);
+  letter-spacing: 0.015em;
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+  font-family: var(--font-primary);
+}
+
+/* ============================= 
+Table cells max width 
+============================= */
+td {
+  max-width: 320px;
+  word-wrap: break-word;
+}
+
+/* ============================= 
+Scrollbar for sidebar 
+============================= */
+.sidebar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+
+/* =============================
+ManageUsers page because I've suffered too much 
+============================= */
+.manage-users-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  color: #1f1f1f;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.manage-header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #111;
+}
+
+/* Flex section: stats + form */
+.manage-flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.user-stats {
+  flex: 1;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.user-stats p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.create-user-form {
+  flex: 1;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.create-user-form h3 {
+  margin-bottom: 1rem;
+  color: #111;
+  font-size: 1.2rem;
+}
+
+/* Form inputs */
+.create-user-form input,
+.create-user-form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  background-color: #fafafa;
+  color: #1f1f1f;
+}
+
+.create-user-form input:focus,
+.create-user-form select:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+/* Button styling */
+.create-user-form button {
+  background-color: #1f1f1f;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.create-user-form button:hover {
+  background-color: #000;
+}
+
+/* Table styling */
+.manage-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.manage-users-table th,
+.manage-users-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.manage-users-table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+  color: #222;
+}
+
+.manage-users-table td {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.manage-users-table tr:last-child td {
+  border-bottom: none;
+}
+
+
+
+
+
+
+/* Action buttons */
+.action-button {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.edit-button {
+  background-color: #e8e6e6;
+  color: #000;
+}
+
+.edit-button:hover {
+  background-color: #cccaca;
+}
+
+.delete-button {
+  background-color: #1c1c1c;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #2b2b2b;
+}
+
+/* Table header */
+.table-header {
+  padding: 10px;
+  background-color: #292929;
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Alert styles */
+.alert {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
+/* ============================= 
+Responsive tweaks 
+============================= */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 160px;
+    padding: 2rem 1rem;
+  }
+  #content {
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
+  .sidebar {
+    width: 140px;
+    padding: 1.8rem 1rem;
+  }
+  #content {
+    padding: 1.5rem 1.8rem;
+  }
+}
+
+/* ============================= 
+Dashboard cards 
+============================= */
+
+.dashboard-container {
+  padding: 2rem;
+  background-color: #f9f9f9dc;
+}
+
+.dashboard-cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-card {
+  flex: 1;
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.card-label {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+.card-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.error-text {
+  color: crimson;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+/* ============================= 
+Charts
+============================= */
+
+.chart-container {
+  position: relative;
+  min-height: 350px;
+  width: 100%;
+}
+
+
+/* ============================= 
+User Profile
+============================= */
+.user-profile{
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1.5rem;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.user-profile-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.profile-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.profile-info p {
+  margin: 0.5rem 0;
+}
+
+/* ============================= 
+Manage users (create user and user count part)
+============================= */
+
+.manageusers-container {
+  padding: 2rem;
+  background-color: #f9f9f9dc;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.manageusers-main {
+  flex: 1;
+  min-width: 200px;
+  background-color: #ffffffe3;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
