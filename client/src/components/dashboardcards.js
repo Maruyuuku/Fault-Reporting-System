@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles.css'; 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
 
 const DashboardCards = ({ role }) => {
   const [summary, setSummary] = useState({});
@@ -9,7 +13,7 @@ const DashboardCards = ({ role }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:5000/api/reports/dashboard-summary', {
+    axios.get('${API_URL}/api/reports/dashboard-summary', {
       headers: {
         Authorization: `Bearer ${token}`,
       }

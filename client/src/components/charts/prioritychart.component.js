@@ -11,6 +11,11 @@ import {
   Title
 } from 'chart.js';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
+
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
 const labels = ['Low', 'Medium', 'High', 'Critical'];
@@ -42,7 +47,7 @@ export default class PriorityChart extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:5000/api/reports', {
+    axios.get('${API_URL}/api/reports', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {

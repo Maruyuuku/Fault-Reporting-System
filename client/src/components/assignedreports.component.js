@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/auth-context';
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
 
 export default function AssignedReports() {
   const [reports, setReports] = useState([]);
@@ -11,7 +14,7 @@ export default function AssignedReports() {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
-          `http://localhost:5000/api/reports/assigned/${user.id}`,
+          `${API_URL}/api/reports/assigned/${user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setReports(response.data);
@@ -29,7 +32,7 @@ export default function AssignedReports() {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `http://localhost:5000/api/reports/${reportId}`,
+        `${API_URL}/api/reports/${reportId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -73,7 +76,7 @@ export default function AssignedReports() {
               <td>
                 {report.image ? (
                   <img
-                    src={`http://localhost:5000/${report.image}`}
+                    src={`${API_URL}/${report.image}`}
                     alt="report"
                     style={{ maxHeight: '60px', maxWidth: '60px' }}
                   />

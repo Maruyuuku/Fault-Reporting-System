@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
+
 const categories = ['Electrical', 'Plumbing', 'HVAC', 'Structural', 'Other'];
 const severities = ['Low', 'Medium', 'High', 'Critical'];
 const blocks = ['A', 'B', 'C', 'D', 'E', 'F', 'R', 'Other'];
@@ -68,34 +73,42 @@ export default class CreateReport extends Component {
     if (this.state.image) {
       formData.append('image', this.state.image); // single image key
     }
+    const request = process.env.NODE_ENV === 'production'
+      ? axios.post('https://fault-reporting-system.onrender.com/api/reports', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+      : axios.post('${API_URL}/api/reports', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        });
 
-    axios.post('/api/reports', formData, {
-      headers: {
-        Authorization: `Bearer ${token}`, 
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    .then(() => {
-      alert('Report created successfully!');
-      this.setState({
-        title: '',
-        description: '',
-        category: categories[0],
-        severity: severities[1],
-        block: '',
-        number: '',
-        useCustomLocation: false,
-        customLocation: '',
-        image: null,
-        success: 'Report created successfully!',
-        error: ''
+    request
+      .then(() => {
+        alert('Report created successfully!');
+        this.setState({
+          title: '',
+          description: '',
+          category: categories[0],
+          severity: severities[1],
+          block: '',
+          number: '',
+          useCustomLocation: false,
+          customLocation: '',
+          image: null,
+          success: 'Report created successfully!',
+          error: ''
+        });
+        setTimeout(() => this.setState({ success: '' }), 3000);
+      })
+      .catch(() => {
+        this.setState({ error: 'Error creating report.', success: '' });
+        setTimeout(() => this.setState({ error: '' }), 3000);
       });
-      setTimeout(() => this.setState({ success: '' }), 3000);
-    })
-    .catch(() => {
-      this.setState({ error: 'Error creating report.', success: '' });
-      setTimeout(() => this.setState({ error: '' }), 3000);
-    });
   }
 
   render() {

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
 
 export default function UserProfile() {
   const [user, setUser] = useState(null);
@@ -24,7 +27,7 @@ export default function UserProfile() {
       return;
     }
     try {
-      const res = await axios.get('http://localhost:5000/api/users/me', {
+      const res = await axios.get('${API_URL}/api/users/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(res.data);
@@ -55,7 +58,7 @@ export default function UserProfile() {
         const formData = new FormData();
         formData.append('profilePicture', profileImageFile); // Must match Multer field name
 
-        await axios.put('http://localhost:5000/api/users/me/profile-picture', formData, {
+        await axios.put('${API_URL}/api/users/me/profile-picture', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -77,7 +80,7 @@ export default function UserProfile() {
         }
 
         //await axios.post('http://localhost:5000/api/users/me/change-password', {
-        await axios.post('/api/users/me/change-password', {
+        await axios.post('${API_URL}/api/users/me/change-password', {
           oldPassword,
           newPassword
         }, {

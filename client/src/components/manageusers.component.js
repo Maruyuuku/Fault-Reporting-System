@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CreateUser from './createuser.component';
+import { application } from 'express';
+
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
 
 const roles = [
   { value: 'general', label: 'General User' },
@@ -48,7 +53,7 @@ export default class ManageUsers extends Component {
   fetchUsers = () => {
     const token = localStorage.getItem('token');
     axios
-      .get('http://localhost:5000/api/users', {
+      .get('${API_URL}/api/users', {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {
@@ -69,7 +74,7 @@ export default class ManageUsers extends Component {
 
   deleteUser = (id) => {
     axios
-      .delete(`http://localhost:5000/api/users/${id}`, {
+      .delete(`${API_URL}/api/users/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(() => this.fetchUsers())
@@ -90,7 +95,7 @@ export default class ManageUsers extends Component {
     try {
       // firstly updating the fields that arent password
       await axios.patch(
-        `http://localhost:5000/api/users/${editingUser._id}`,
+        `${API_URL}/api/users/${editingUser._id}`,
         {
           name: editingUser.name,
           email: editingUser.email,
@@ -103,7 +108,7 @@ export default class ManageUsers extends Component {
       // check if password is filled and update password
       if (editingUser.password && editingUser.password.trim() !== '') {
         await axios.patch(
-          `http://localhost:5000/api/users/${editingUser._id}/password`,
+          `${API_URL}/api/users/${editingUser._id}/password`,
           { newPassword: editingUser.password },
           { headers: { Authorization: `Bearer ${token}` } }
         );

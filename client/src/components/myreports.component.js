@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
 const MyReport = () => {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,7 @@ const MyReport = () => {
 
   const fetchMyReports = () => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:5000/api/reports/mine', {
+    axios.get('${API_URL}/api/reports/mine', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
@@ -40,7 +44,7 @@ const handleEdit = (report) => {
     if (!window.confirm('Are you sure you want to delete this report?')) return;
     const token = localStorage.getItem('token');
     console.log('Deleting report with token:', token); 
-    axios.delete(`http://localhost:5000/api/reports/${id}`, {
+    axios.delete(`${API_URL}/api/reports/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(() => {

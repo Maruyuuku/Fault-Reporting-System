@@ -21,9 +21,16 @@ export default function Login() {
     e.preventDefault();
     try {
       //const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      const res = await axios.post('api/auth/login', { email, password });
-      login(res.data);
+      let res;
+      if (process.env.NODE_ENV == 'production'){
+        res = await axios.post('https://fault-reporting-system.onrender.com/api/auth/login', { email, password });
+      }
 
+      else {
+        res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      }
+      login(res.data);
+      
       const role = res.data.user.role;
       if (role === 'admin') {
         navigate('/admin-portal');

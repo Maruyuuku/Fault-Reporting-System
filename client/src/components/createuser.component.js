@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
+
 const roles = [
   { value: 'general', label: 'General User' },
   { value: 'technician', label: 'Technician' },
@@ -42,7 +47,7 @@ export default class CreateUser extends Component {
 
     axios
       .post(
-        'http://localhost:5000/api/users',
+        '${API_URL}/api/users',
         { name, email, password, department, role },
         { headers: { Authorization: `Bearer ${token}` } }
       )

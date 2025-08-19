@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
+
 function withParamsAndNavigate(Component) {
   return props => {
     const params = useParams();
@@ -29,7 +34,7 @@ class EditReport extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/api/reports/${this.props.params.id}`, {
+      .get(`${API_URL}/api/reports/${this.props.params.id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
       .then(res => {
@@ -52,7 +57,7 @@ class EditReport extends Component {
 
     axios
       .patch(
-        `http://localhost:5000/api/reports/${this.props.params.id}/update`,
+        `${API_URL}/api/reports/${this.props.params.id}/update`,
         { title, description, category, severity, location },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       )

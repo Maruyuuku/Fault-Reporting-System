@@ -13,6 +13,10 @@ import {
 
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, Title);
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
 const labels = ['Electrical', 'Plumbing', 'HVAC', 'Structural', 'Other'];
 const backgroundColor = ['#4caf50', '#2196f3', '#ff9800', '#9c27b0', '#9e9e9e'];
 
@@ -42,7 +46,7 @@ export default class TypeChart extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
 
-    axios.get('http://localhost:5000/api/reports', {
+    axios.get('${API_URL}:5000/api/reports', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
