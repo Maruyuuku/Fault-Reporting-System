@@ -5,7 +5,7 @@ const categories = ['Electrical', 'Plumbing', 'HVAC', 'Structural', 'Other'];
 const severities = ['Low', 'Medium', 'High', 'Critical'];
 const blocks = ['A', 'B', 'C', 'D', 'E', 'F', 'R', 'Other'];
 
-export default class CreateTicket extends Component {
+export default class CreateReport extends Component {
   constructor(props) {
     super(props);
 
@@ -50,7 +50,7 @@ export default class CreateTicket extends Component {
     e.preventDefault();
     const token = localStorage.getItem('token');
     if (!token) {
-      this.setState({ error: 'You must be logged in to submit a ticket.' });
+      this.setState({ error: 'You must be logged in to submit a report.' });
       return;
     }
 
@@ -93,7 +93,7 @@ export default class CreateTicket extends Component {
       setTimeout(() => this.setState({ success: '' }), 3000);
     })
     .catch(() => {
-      this.setState({ error: 'Error creating report ticket.', success: '' });
+      this.setState({ error: 'Error creating report.', success: '' });
       setTimeout(() => this.setState({ error: '' }), 3000);
     });
   }
@@ -251,6 +251,7 @@ export default class CreateTicket extends Component {
           {/* Single Image Upload */}
           <div className="form-group" style={{ marginBottom: '20px' }}>
             <label>Upload Image:</label>
+            <i style={{color: 'grey'}}>Only PNG and JPG</i>
             <input
               type="file"
               accept="image/*"

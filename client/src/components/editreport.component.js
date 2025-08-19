@@ -13,7 +13,7 @@ function withParamsAndNavigate(Component) {
 const categoryOptions = ['Electrical', 'Plumbing', 'HVAC', 'Structural', 'Other'];
 const severityOptions = ['Low', 'Medium', 'High', 'Critical'];
 
-class EditTicket extends Component {
+class EditReport extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class EditTicket extends Component {
       })
       .catch(err => {
         console.error(err);
-        this.setState({ errorMsg: 'Failed to load ticket.' });
+        this.setState({ errorMsg: 'Failed to load report.' });
       });
   }
 
@@ -57,11 +57,11 @@ class EditTicket extends Component {
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       )
       .then(() => {
-        this.setState({ successMsg: '✔️ Ticket updated successfully.', errorMsg: '' });
+        this.setState({ successMsg: 'Report updated successfully.', errorMsg: '' });
         setTimeout(() => this.props.navigate('/myreports'), 2000);
       })
       .catch(() => {
-        this.setState({ errorMsg: '❌ Failed to update ticket.', successMsg: '' });
+        this.setState({ errorMsg: 'Failed to update report.', successMsg: '' });
       });
   };
 
@@ -71,7 +71,7 @@ class EditTicket extends Component {
     return (
       <div className="container mt-3">
         <h3>
-          Edit Ticket{title && ` (${title})`}{location && ` - ${location}`}
+          Edit Report{title && ` (${title})`}{location && ` - ${location}`}
         </h3>
 
         {successMsg && (
@@ -150,7 +150,7 @@ class EditTicket extends Component {
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Update Ticket
+            Update report
           </button>
         </form>
       </div>
@@ -158,4 +158,4 @@ class EditTicket extends Component {
   }
 }
 
-export default withParamsAndNavigate(EditTicket);
+export default withParamsAndNavigate(EditReport);

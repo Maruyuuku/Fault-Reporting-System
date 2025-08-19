@@ -112,7 +112,7 @@ export default class ManageUsers extends Component {
       // Success handling
       this.setState({
         editingUser: null,
-        successMsg: '✔️ Updated user information',
+        successMsg: 'Updated user information',
         errorMsg: ''
       });
       this.fetchUsers();
@@ -121,7 +121,7 @@ export default class ManageUsers extends Component {
       console.error('Update error:', err?.response?.data || err.message);
 
       this.setState({
-        errorMsg: '❌ Unable to update user info',
+        errorMsg: 'Unable to update user info',
         successMsg: ''
       });
       setTimeout(() => this.setState({ errorMsg: '' }), 3000);

@@ -2,53 +2,54 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/auth-context';
 
-export default function AssignedTickets() {
-  const [tickets, setTickets] = useState([]);
+export default function AssignedReports() {
+  const [reports, setReports] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    const fetchAssignedTickets = async () => {
+    const fetchAssignedReports = async () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get(
           `http://localhost:5000/api/reports/assigned/${user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        setTickets(response.data);
+        setReports(response.data);
       } catch (error) {
-        console.error('Error fetching assigned tickets:', error);
+        console.error('Error fetching assigned reports:', error);
       }
     };
 
     if (user?.id) {
-      fetchAssignedTickets();
+      fetchAssignedReports();
     }
   }, [user]);
 
-  const handleStatusUpdate = async (ticketId, newStatus) => {
+  const handleStatusUpdate = async (reportId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `http://localhost:5000/api/reports/${ticketId}`,
+        `http://localhost:5000/api/reports/${reportId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      setTickets(prev =>
-        prev.map(ticket =>
-          ticket._id === ticketId ? { ...ticket, status: response.data.status } : ticket
+      setReports(prev =>
+        prev.map(report =>
+          report._id === reportId ? { ...report, status: response.data.status } : report
         )
       );
     } catch (error) {
-      console.error('Error updating ticket status:', error);
+      console.error('Error updating report status:', error);
     }
   };
 
   return (
-    <div className="assigned-tickets container mt-3">
-      <h3 className="mb-4">Your Assigned Tickets</h3>
+    <div className="assigned-reports container mt-3">
+      <h3 className="mb-4">Your Assigned Reports</h3>
+      
 
-      {tickets.length > 0 ? (
+      {reports.length > 0 ? (
         <table className="table table-striped table-hover shadow-sm rounded">
   <thead className="table-dark">
     <tr className='table-header'>
@@ -61,39 +62,39 @@ export default function AssignedTickets() {
       <th style={{ minWidth: '160px' }}>Actions</th>
     </tr>
   </thead>
-        <tbody>
-          {tickets.map(ticket => (
-            <tr key={ticket._id}>
-              <td>{ticket.title}</td>
-              <td>{ticket.description}</td>
-              <td>{ticket.location}</td>
-              <td>{ticket.severity}</td>
-              <td>{ticket.status}</td>
+        <tbody style={{padding: '14px 20px'}}>
+          {reports.map(report => (
+            <tr key={report._id}>
+              <td>{report.title}</td>
+              <td>{report.description}</td>
+              <td>{report.location}</td>
+              <td>{report.severity}</td>
+              <td>{report.status}</td>
               <td>
-                {ticket.image ? (
+                {report.image ? (
                   <img
-                    src={`http://localhost:5000/${ticket.image}`}
-                    alt="ticket"
+                    src={`http://localhost:5000/${report.image}`}
+                    alt="report"
                     style={{ maxHeight: '60px', maxWidth: '60px' }}
                   />
                 ) : (
                   'No image.'
                 )}
               </td>
-              <td>
+              <td style={{minWidth: '235px'}}>
                 <button
                   className={`btn btn-sm me-2 ${
-                    ticket.status === 'In Progress' ? 'btn-primary' : 'btn-outline-primary'
+                    report.status === 'In Progress' ? 'btn-primary' : 'btn-outline-primary'
                   }`}
-                  onClick={() => handleStatusUpdate(ticket._id, 'In Progress')}
+                  onClick={() => handleStatusUpdate(report._id, 'In Progress')}
                 >
                   In Progress
                 </button>
                 <button
                   className={`btn btn-sm ${
-                    ticket.status === 'Resolved' ? 'btn-success' : 'btn-outline-success'
+                    report.status === 'Resolved' ? 'btn-success' : 'btn-outline-success'
                   }`}
-                  onClick={() => handleStatusUpdate(ticket._id, 'Resolved')}
+                  onClick={() => handleStatusUpdate(report._id, 'Resolved')}
                 >
                   Resolved
                 </button>
@@ -103,7 +104,7 @@ export default function AssignedTickets() {
         </tbody>
       </table>
       ) : (
-        <div className="alert alert-info">No tickets assigned to you currently.</div>
+        <div className="alert alert-info">No reports assigned to you currently.</div>
       )}
     </div>
   );

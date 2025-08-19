@@ -2,19 +2,19 @@
 Theme 
 ============================= */
 :root {
-  --color-bg: #f9fafb;            /* ultra light grey */
-  --color-light: #ffffff;         /* white */
-  --color-dark: #121212;          /* deep black */
-  --color-grey: #7a7a7a;          /* neutral grey */
-  --color-border: #ddd;           /* subtle border */
-  --color-accent: #1f1f1f;        /* dark accent */
-  --sidebar-bg: #111111;          /* very dark sidebar */
+  --color-bg: #f9fafb;            
+  --color-light: #ffffff;         
+  --color-dark: #121212;          
+  --color-grey: #7a7a7a;       
+  --color-border: #ddd;      
+  --color-accent: #1f1f1f;      
+  --sidebar-bg: #111111;        
   --radius: 12px;
   --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --transition-speed: 0.3s;
 }
 
-/* Reset and base */
+
 * {
   margin: 0;
   padding: 0;
@@ -120,43 +120,6 @@ Content Area
   letter-spacing: 0.015em;
 }
 
-/* ============================= 
-Tables 
-============================= */
-.report-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 12px;
-  margin-top: 1.5rem;
-  font-size: 1rem;
-  color: var(--color-dark);
-}
-
-.report-table th,
-.report-table td {
-  background-color: #fff;
-  padding: 14px 20px;
-  text-align: left;
-  vertical-align: middle;
-  border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.report-table th {
-  background-color: transparent;
-  font-weight: 700;
-  color: var(--color-dark);
-  letter-spacing: 0.04em;
-  padding-bottom: 12px;
-  box-shadow: none;
-}
-
-.report-table tbody tr:hover {
-  background-color: #f0f2f5;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: background-color 0.25s ease;
-}
 
 /* ============================= 
 Buttons & Inputs 
@@ -262,13 +225,6 @@ Alerts
 }
 
 /* ============================= 
-Priority Labels 
-============================= */
-.low-priority { color: #2e7d32; }   
-.med-priority { color: #c49a00; }     
-.high-priority { color: #b71c1c; }    
-
-/* ============================= 
 Status Badges 
 ============================= */
 .badge-submitted,
@@ -285,10 +241,10 @@ Status Badges
   letter-spacing: 0.02em;
 }
 
-.badge-submitted { background-color: #757575; }  
-.badge-assigned { background-color: #333333; }     
-.badge-in-progress { background-color: #222222; }   
-.badge-resolved { background-color: #000000; } 
+.badge-submitted { background-color: #3a3939; }  
+.badge-assigned { background-color: #15083b; }     
+.badge-in-progress { background-color: #d49713; }   
+.badge-resolved { background-color: #035a2fe7; } 
 
 /* ============================= 
 Misc Utilities 

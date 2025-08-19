@@ -48,8 +48,8 @@ export default class StatusChart extends Component {
     .then(res => {
       let submitted = 0, assigned = 0, progress = 0, resolved = 0;
 
-      res.data.forEach(ticket => {
-        switch (ticket.status) {
+      res.data.forEach(report => {
+        switch (report.status) {
           case 'Submitted': submitted++; break;
           case 'Assigned': assigned++; break;
           case 'In Progress': progress++; break;

@@ -61,12 +61,12 @@ const handleEdit = (report) => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th>Report ID</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Assigned Technician</th>
-            <th>Image</th> 
-            <th>Actions</th>
+            <th style={{backgroundColor:"black", color:"white"}}>Report ID</th>
+            <th style={{backgroundColor:"black", color:"white"}}>Title</th>
+            <th style={{backgroundColor:"black", color:"white"}}>Status</th>
+            <th style={{backgroundColor:"black", color:"white"}}>Assigned Technician</th>
+            <th style={{backgroundColor:"black", color:"white"}}>Image</th> 
+            <th style={{backgroundColor:"black", color:"white"}}>Actions</th>
           </tr>
         </thead>
         <tbody>

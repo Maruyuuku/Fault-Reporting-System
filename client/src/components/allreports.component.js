@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignedTickets from './assignedtickets.component';
+import AssignedReports from './assignedreports.component';
 
 
 export default function AllReports() {
@@ -8,7 +8,7 @@ export default function AllReports() {
       <h2 className="mb-4">All Reports Page</h2>
       <div className="row">
         <div className="col-md-6">
-          <AssignedTickets />
+          <AssignedReports />
         </div>
       </div>
     </div>

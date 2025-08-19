@@ -2,7 +2,7 @@
 //also dont forget to run this from parent folder (server), not sub folder (hashpasswords) ^^
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('./models/user'); 
+const User = require('../models/user'); 
 
 async function seed() {
   await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +18,7 @@ async function seed() {
     const userExists = await User.findOne({ email: userData.email });
     if (!userExists) {
       const user = new User(userData);
-      await user.save();  // your pre-save middleware will hash passwords automatically
+      await user.save();  
       console.log(`Created user: ${user.email}`);
     } else {
       console.log(`User already exists: ${userData.email}`);

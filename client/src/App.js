@@ -6,13 +6,13 @@ import Navbar from "./components/navbar.component";
 import Sidebar from "./components/sidebar.component";
 import UserProfile from "./components/UserProfile";
 
-import CreateTicket from "./components/createticket.component";
+import CreateReport from "./components/createreport.component";
 import GeneralUserDashboard from "./components/generaluser.component";
 import TechnicianDashboard from "./components/techniciandashboard.component";
 import AdminDashboard from "./components/admindashboard.component";
 
 import ManageUsers from "./components/manageusers.component";
-import EditTicket from "./components/edittickets.component";
+import EditReport from "./components/editreport.component";
 import Login from "./components/login.component";
 
 import MyReports from "./components/myreports.component";
@@ -41,8 +41,8 @@ function AppContent() {
             <Route path="/general-portal" element={<GeneralUserDashboard />} />
 
             {/* Make and Create Reports */}
-            <Route path="/tickets/create" element={<CreateTicket />} />
-            <Route path="/edit/:id" element={<EditTicket />} />
+            <Route path="/reports/create" element={<CreateReport />} />
+            <Route path="/edit/:id" element={<EditReport />} />
 
             {/* Admin Management */}
             <Route path="/manage-users" element={<ManageUsers />} />

@@ -48,9 +48,9 @@ export default class TypeChart extends Component {
     .then(res => {
       let electrical = 0, plumbing = 0, hvac = 0, structural = 0, other = 0;
 
-      res.data.forEach(ticket => {
-        if (ticket.status !== 'Resolved') {
-          switch(ticket.category) {
+      res.data.forEach(report => {
+        if (report.status !== 'Resolved') {
+          switch(report.category) {
             case 'Electrical': electrical++; break;
             case 'Plumbing': plumbing++; break;
             case 'HVAC': hvac++; break;

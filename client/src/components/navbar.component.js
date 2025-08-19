@@ -17,7 +17,7 @@ const Navbar = () => {
         {user ? (
           <span>Hello, {user.name}</span>
         ) : (
-          <span>Welcome</span>
+          <span>Welcome!</span>
         )}
       </div>
       <div className="navbar-right">

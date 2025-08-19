@@ -22,16 +22,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/reports', authenticate, reportRoutes); 
 app.use('/api/users', authenticate, userRoutes); // protected
 
-console.log('Static path:', path.join(__dirname, '../client/build'));
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('Serving static files from:', path.join(__dirname, '../client/build'));
-
-app.get('/test-catchall', (req, res) => {
-  res.status(200).send('Test catchall route hit');
-  console.log("catchall route hit");
-});
-
-// Dev: no static files, no catch-all for frontend
+// just to serve static files for deploying
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get(/.*/, (req, res) => {

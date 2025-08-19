@@ -47,6 +47,7 @@ export default class CreateUser extends Component {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {
+        alert("User created successfully");
         this.setState({
           name: '',
           email: '',

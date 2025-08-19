@@ -48,9 +48,9 @@ export default class PriorityChart extends Component {
     .then(res => {
       let low = 0, medium = 0, high = 0, critical = 0;
 
-      res.data.forEach(ticket => {
-        if (ticket.status !== 'Resolved') {
-          switch(ticket.severity) {
+      res.data.forEach(report => {
+        if (report.status !== 'Resolved') {
+          switch(report.severity) {
             case 'Low': low++; break;
             case 'Medium': medium++; break;
             case 'High': high++; break;

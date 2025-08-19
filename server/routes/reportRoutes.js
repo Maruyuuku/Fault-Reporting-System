@@ -11,7 +11,6 @@ router.post('/', authenticate, multer.single('image'), async (req, res) => {
   try {
     const { title, description, category, severity, location } = req.body;
     const imagePath = req.file ? `uploads/${req.file.filename}` : null;
-    console.log("hi");
 
     //saving the report to database
     const newReport = new Report({
@@ -25,18 +24,13 @@ router.post('/', authenticate, multer.single('image'), async (req, res) => {
     });
 
     const savedReport = await newReport.save();
-    console.log("saving report");
     
 
     //send email to all admins
-    console.log("before admin find");
     const admins = await User.find({ role: 'admin' });
-    console.log("after admin find");
     const adminEmails = admins.map(admin => admin.email); 
 
-    //send email using the user email as sender
-    console.log('prepare send email');
-    console.log(req.user.email);
+    //send email notif for report submittion
     await transporter.sendMail({
       from: `"Fault Report System" <${process.env.EMAIL_USER}>`,
       to: [...adminEmails, req.user.email], 
@@ -49,10 +43,13 @@ router.post('/', authenticate, multer.single('image'), async (req, res) => {
         <p><strong>Severity:</strong> ${newReport.severity}</p>
         <p><strong>Location:</strong> ${newReport.location}</p>
         <p><strong>Submitted by:</strong> ${req.user.email}</p>
+        <br><br>
+        <hr>
+        <br><br>
+        <strong>Please note that this is an generated message. Do not reply this email.</strong>
 
       `,
     });
-    console.log("it tried.");
     res.status(201).json(savedReport);
   } catch (error) {
     console.error('Error creating report:', error);
@@ -124,9 +121,9 @@ router.get('/dashboard-summary', authenticate, async (req, res) => {
     ]);
 
     res.json({
-      total,        // All reports in this user's context
-      submitted,    // Only meaningful for general users
-      assigned,     // Assigned to the user (or system-wide for admin)
+      total,        
+      submitted,    
+      assigned,     
       inProgress,
       resolved
     });
@@ -184,7 +181,8 @@ router.patch('/:id', authenticate, authorize('admin', 'technician'), async (req,
   try {
     const { status } = req.body;
 
-    const report = await Report.findById(req.params.id);
+    const report = await Report.findById(req.params.id).populate('submittedBy', 'name email');
+
     if (!report) return res.status(404).json({ message: 'Report not found' });
 
     if (
@@ -197,6 +195,43 @@ router.patch('/:id', authenticate, authorize('admin', 'technician'), async (req,
     report.status = status;
     report.updatedAt = new Date();
     await report.save();
+    
+    if (status === 'In Progress') {
+      await transporter.sendMail({
+        from: `"Fault Report System" <${process.env.EMAIL_USER}>`,
+        to: report.submittedBy.email,
+        subject: `Report In Progress: ${report.title}`,
+        html: `
+          <h2>Your report is now in progress</h2>
+          <p><strong>Title:</strong> ${report.title}</p>
+          <p><strong>Status:</strong> In Progress</p>
+          <br><br>
+          <hr>
+          <br><br>
+          <strong>Please note that this is an generated message. Do not reply this email.</strong>
+        `
+      });
+    }
+
+    if (status === 'Resolved') {
+      const admins = await User.find({ role: 'admin' });
+      const adminEmails = admins.map(admin => admin.email);
+
+      await transporter.sendMail({
+        from: `"Fault Report System" <${process.env.EMAIL_USER}>`,
+        to: [...adminEmails, report.submittedBy.email],
+        subject: `Report Resolved: ${report.title}`,
+        html: `
+          <h2>A report has been resolved</h2>
+          <p><strong>Title:</strong> ${report.title}</p>
+          <p><strong>Status:</strong> Resolved</p>
+          <br><br>
+          <hr>
+          <br><br>
+          <strong>Please note that this is an generated message. Do not reply this email.</strong>
+        `
+      });
+    }
 
     res.json(report);
   } catch (err) {
@@ -247,6 +282,7 @@ router.patch('/:id/assign', async (req, res) => {
   try {
     const { technicianId } = req.body;
     if (!technicianId) {
+      alert("Technician does not exist.");
       return res.status(400).json({ message: 'Technician ID is required' });
     }
 
@@ -263,8 +299,25 @@ router.patch('/:id/assign', async (req, res) => {
       .populate('assignedTo', 'name email');
 
     if (!updatedReport) {
+      alert("Report does not exist.");
       return res.status(404).json({ message: 'Report not found' });
     }
+    //sending email to technician and the reporting user
+    await transporter.sendMail({
+      from: `"Fault Report System" <${process.env.EMAIL_USER}>`,
+      to: [updatedReport.assignedTo.email, updatedReport.submittedBy.email],
+      subject: `Report Assigned: ${updatedReport.title}`,
+      html: `
+        <h2>A report has been assigned</h2>
+        <p><strong>Title:</strong> ${updatedReport.title}</p>
+        <p><strong>Assigned Technician:</strong> ${updatedReport.assignedTo.name} (${updatedReport.assignedTo.email})</p>
+        <p><strong>Submitted by:</strong> ${updatedReport.submittedBy.name} (${updatedReport.submittedBy.email})</p>
+        <br><br>
+        <hr>
+        <br><br>
+        <strong>Please note that this is an generated message. Do not reply this email.</strong>
+      `
+    });
 
     res.json(updatedReport);
   } catch (err) {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-//it's the ticket display for "MANAGE REPORTS"
+//it's the report display for "MANAGE REPORTS"
 
-const TicketDisplay = ({ ticket, deleteTicket }) => {
+const ReportDisplay = ({ report, deleteReport }) => {
   // Helper function to display priority with appropriate styling
   const getPriorityBadge = (priority) => {
     switch(priority) {
@@ -27,35 +27,34 @@ const TicketDisplay = ({ ticket, deleteTicket }) => {
       Assigned: 'bg-primary',
       'In Progress': 'bg-info',
       Resolved: 'bg-success',
-      Closed: 'bg-dark'
     };
     return <span className={`badge ${statusClasses[status] || 'bg-secondary'}`}>{status}</span>;
   };
 
   return (
     <tr>
-      <td>{ticket.title}</td>
-      <td>{ticket.description}</td>
-      <td>{ticket.category}</td>
-      <td>{ticket.assignedTo?.name || 'Unassigned'}</td>
-      <td>{getPriorityBadge(ticket.severity)}</td>
-      <td>{getStatusBadge(ticket.status)}</td>
+      <td>{report.title}</td>
+      <td>{report.description}</td>
+      <td>{report.category}</td>
+      <td>{report.assignedTo?.name || 'Unassigned'}</td>
+      <td>{getPriorityBadge(report.severity)}</td>
+      <td>{getStatusBadge(report.status)}</td>
       <td>
         <div className="d-flex flex-column gap-1">
-          <Link to={`/edit/${ticket._id}`} className="btn btn-sm btn-info">
+          <Link to={`/edit/${report._id}`} className="btn btn-sm btn-info">
             Edit
           </Link>
           <button 
             onClick={() => {
-              if(window.confirm('Are you sure you want to delete this ticket?')) {
-                deleteTicket(ticket._id);
+              if(window.confirm('Are you sure you want to delete this report?')) {
+                deleteReport(report._id);
               }
             }}
             className="btn btn-sm btn-danger"
           >
             Delete
           </button>
-          {ticket.status !== 'Resolved' && (
+          {report.status !== 'Resolved' && (
             <button className="btn btn-sm btn-success">
               Mark Resolved
             </button>
@@ -66,4 +65,4 @@ const TicketDisplay = ({ ticket, deleteTicket }) => {
   );
 };
 
-export default TicketDisplay;
+export default ReportDisplay;
