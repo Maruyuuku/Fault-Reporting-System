@@ -76,7 +76,8 @@ export default function UserProfile() {
           return;
         }
 
-        await axios.post('http://localhost:5000/api/users/me/change-password', {
+        //await axios.post('http://localhost:5000/api/users/me/change-password', {
+        await axios.post('/api/users/me/change-password', {
           oldPassword,
           newPassword
         }, {

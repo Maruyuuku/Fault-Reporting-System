@@ -69,7 +69,7 @@ export default class CreateReport extends Component {
       formData.append('image', this.state.image); // single image key
     }
 
-    axios.post('http://localhost:5000/api/reports', formData, {
+    axios.post('/api/reports', formData, {
       headers: {
         Authorization: `Bearer ${token}`, 
         'Content-Type': 'multipart/form-data'
