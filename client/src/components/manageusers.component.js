@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CreateUser from './createuser.component';
-import { application } from 'express';
 
 const API_URL = process.env.NODE_ENV === 'production'
   ? 'https://fault-reporting-system.onrender.com'
@@ -53,7 +52,7 @@ export default class ManageUsers extends Component {
   fetchUsers = () => {
     const token = localStorage.getItem('token');
     axios
-      .get('${API_URL}/api/users', {
+      .get(`${API_URL}/api/users`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {

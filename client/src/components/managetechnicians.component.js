@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com'
+  : 'http://localhost:5000';
+
+
 const roles = [
   { value: 'general', label: 'General User' },
   { value: 'technician', label: 'Technician' },
@@ -32,10 +37,10 @@ export default class ManageTechnicians extends Component {
     const token = localStorage.getItem('token');
     try {
       const [techRes, reportsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/users?role=technician', {
+        axios.get(`${API_URL}/api/users?role=technician`, {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get('http://localhost:5000/api/reports', {
+        axios.get(`${API_URL}/api/reports`, {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -73,7 +78,7 @@ export default class ManageTechnicians extends Component {
 
     axios
       .patch(
-        `http://localhost:5000/api/reports/${reportId}/assign`,
+        `${API_URL}/api/reports/${reportId}/assign`,
         { technicianId },
         { headers: { Authorization: `Bearer ${token}` } }
       )

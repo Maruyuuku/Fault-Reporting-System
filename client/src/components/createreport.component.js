@@ -80,7 +80,7 @@ export default class CreateReport extends Component {
             'Content-Type': 'multipart/form-data'
           }
         })
-      : axios.post('${API_URL}/api/reports', formData, {
+      : axios.post(`${API_URL}/api/reports`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'

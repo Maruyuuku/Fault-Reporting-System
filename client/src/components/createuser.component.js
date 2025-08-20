@@ -47,7 +47,7 @@ export default class CreateUser extends Component {
 
     axios
       .post(
-        '${API_URL}/api/users',
+        `${API_URL}/api/users`,
         { name, email, password, department, role },
         { headers: { Authorization: `Bearer ${token}` } }
       )

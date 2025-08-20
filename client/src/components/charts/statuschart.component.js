@@ -47,7 +47,7 @@ export default class StatusChart extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
 
-    axios.get('${API_URL}/api/reports', {
+    axios.get(`${API_URL}/api/reports`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {

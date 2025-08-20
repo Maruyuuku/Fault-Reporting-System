@@ -27,7 +27,7 @@ export default function UserProfile() {
       return;
     }
     try {
-      const res = await axios.get('${API_URL}/api/users/me', {
+      const res = await axios.get(`${API_URL}/api/users/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(res.data);
@@ -58,7 +58,7 @@ export default function UserProfile() {
         const formData = new FormData();
         formData.append('profilePicture', profileImageFile); // Must match Multer field name
 
-        await axios.put('${API_URL}/api/users/me/profile-picture', formData, {
+        await axios.put(`{API_URL}/api/users/me/profile-picture`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -80,7 +80,7 @@ export default function UserProfile() {
         }
 
         //await axios.post('http://localhost:5000/api/users/me/change-password', {
-        await axios.post('${API_URL}/api/users/me/change-password', {
+        await axios.post(`${API_URL}/api/users/me/change-password`, {
           oldPassword,
           newPassword
         }, {
@@ -108,7 +108,7 @@ export default function UserProfile() {
   if (!user) return <p>Loading profile...</p>;
 
   const profileImage = user.profilePicture
-    ? `http://localhost:5000/${user.profilePicture}`
+    ? `${API_URL}/${user.profilePicture}`
     : 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
   return (

@@ -46,7 +46,7 @@ export default class TypeChart extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
 
-    axios.get('${API_URL}:5000/api/reports', {
+    axios.get(`${API_URL}/api/reports`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {

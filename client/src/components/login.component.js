@@ -3,6 +3,10 @@ import axios from 'axios';
 import { useAuth } from '../context/auth-context';
 import { useNavigate } from 'react-router-dom';
 
+const apiURL = process.env.NODE_ENV === 'production'
+  ? 'https://fault-reporting-system.onrender.com/api/auth/login'
+  : 'http://localhost:5000/api/auth/login';
+
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,15 +24,8 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      let res;
-      if (process.env.NODE_ENV == 'production'){
-        res = await axios.post('https://fault-reporting-system.onrender.com/api/auth/login', { email, password });
-      }
-
-      else {
-        res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      }
+      //console.log('Sending login request to:', apiURL, { email, password });
+      const res = await axios.post(apiURL, { email, password });
       login(res.data);
       
       const role = res.data.user.role;

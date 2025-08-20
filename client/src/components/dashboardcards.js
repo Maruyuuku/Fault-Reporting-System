@@ -13,7 +13,7 @@ const DashboardCards = ({ role }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('${API_URL}/api/reports/dashboard-summary', {
+    axios.get(`${API_URL}/api/reports/dashboard-summary`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }

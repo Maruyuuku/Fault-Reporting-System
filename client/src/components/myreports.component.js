@@ -18,7 +18,7 @@ const MyReport = () => {
 
   const fetchMyReports = () => {
     const token = localStorage.getItem('token');
-    axios.get('${API_URL}/api/reports/mine', {
+    axios.get(`${API_URL}/api/reports/mine`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
